@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "nest build",
+    "lint": "tsc --project tsconfig.json --noEmit --incremental false",
     "test": "tsc --project tsconfig.json --outDir dist-test && node --test dist-test/*.spec.js",
     "start": "nest start",
     "start:dev": "nest start --watch"

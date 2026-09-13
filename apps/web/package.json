@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "ng serve",
+    "lint": "ngc --project tsconfig.app.json --noEmit",
     "build": "ng build"
   },
   "dependencies": {

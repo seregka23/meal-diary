@@ -55,7 +55,15 @@ requires a destructive data migration without an approved rollback plan.
 ## Project commands
 
 - Install dependencies: `npm install`
+- Lint/type-check all workspace apps: `npm run lint`
 - Build all workspace apps: `npm run build`
 - Test all workspace apps: `npm test`
 - Start the NestJS backend: `npm run start:api`
 - Start the Angular frontend: `npm run start:web`
+
+Run project commands from the repository root after dependency installation.
+`npm run lint`, `npm test`, and `npm run build` cover both the NestJS backend
+and Angular frontend scaffolds where applicable. The current scaffold does not
+include Supabase, authentication, RLS, or other external service validation, so
+these baseline commands and local start commands do not require Supabase local
+services or application environment variables.
