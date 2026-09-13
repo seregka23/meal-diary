@@ -1,0 +1,113 @@
+# Project-owned capability policy for AI-first classification.
+#
+# Fill this file with capabilities that this project can actually use. The shipped
+# default approves no score-changing capabilities: installed, discoverable, or
+# advertised does not mean enabled or proven.
+#
+# Use the `update-ai-first-capabilities` skill to interview the capability owner,
+# inspect available descriptions/docs, and propose a reviewed change. See
+# `.ai-first/capabilities-guide.md` for field definitions and examples.
+
+schema: ai-first-capabilities/v2
+version: "2026.09.3" # Bump whenever profiles, approvals, or capabilities change.
+
+# Defaults are deliberately conservative. An omitted value never grants trust.
+defaults:
+  enabled: false
+  status: provisional
+
+# During classification, scan this file plus `ai-first-capability.yml` files under
+# these project-local skill roots. Skill metadata is a claim, not an approval.
+discovery:
+  metadata_filename: ai-first-capability.yml
+  project_skill_roots:
+    - .agents/skills
+    - .claude/skills
+    - .github/skills
+  additional_roots: [] # Add project-relative roots explicitly when needed.
+  include_user_roots: false # Keep classification reproducible across machines.
+
+# Profiles are routing aliases, not capability approvals and do not alter scores.
+# Replace placeholder model values with names supported by the active agent.
+profiles:
+  deep-planning:
+    purpose: grooming, decomposition, classification, architecture judgment
+    model: <top-tier model>
+    reasoning: high
+    notes: Used where human steering or substantial judgment is expected.
+
+  bulk-mechanical:
+    purpose: delegate-tier execution with deterministic verification
+    model: <mid-tier model>
+    reasoning: low
+    notes: Use only when V=2 and the verify command is the safety net.
+
+  triage:
+    purpose: intake sizing, log scanning, search, and first-pass investigation
+    model: <small-tier model>
+    notes: Findings are reviewed before they become decisions.
+
+# Project-approved capabilities that are not supplied through skill metadata.
+# Kinds: tool, mcp, resource, context-retrieval, validator, skill, agent.
+# New entries should normally start enabled=true/status=provisional, which makes
+# them visible during classification without changing any score.
+capabilities: []
+# Example:
+#   - id: validator:project-tests
+#     kind: validator
+#     name: Project test suite
+#     version: "1"
+#     enabled: true
+#     status: provisional
+#     covers: [isolated-code-change]
+#     effects: {V: 1}
+#     description: Produces a boolean result for the covered change class.
+#     evidence: []
+#     documentation: [docs/testing.md]
+#     requirements: [Project test runtime and fixtures are available]
+#     limitations: [Does not exercise external integrations]
+
+# Explicit approvals for metadata discovered in custom skill directories.
+# Match both id and version. The central project file remains authoritative:
+# metadata cannot approve itself or make itself proven.
+approvals: []
+# Example:
+#   - id: skill:add-endpoint
+#     version: "1.0.0"
+#     enabled: true
+#     status: provisional
+#     covers: [api-surface-addition] # Must be no broader than metadata claims.
+#     effects: {A: 1}               # Must be no stronger than metadata claims.
+#     evidence: []
+#     notes: Approved for evaluation; no score effect until promoted to proven.
+
+# Routing is data so validators can check every target exists.
+profile_routing:
+  human-only: null
+  pair: deep-planning
+  delegate-a1: deep-planning
+  delegate-a2: bulk-mechanical
+  investigation: triage
+
+# Invariants enforced by `decompose-and-classify`:
+# C1. An entry applies only when enabled=true and the task class is in `covers`.
+# C2. Only status=proven changes scores. Provisional entries may be reported only.
+# C3. At most +1 per entry and +1 total per axis may be applied to one task.
+# C4. No capability may raise B. Better tooling cannot reduce consequences.
+# C5. Promotion needs the latest 10 completed supervised trials on distinct tasks
+#     per covered class, for this exact version, all passing with reviewed evidence
+#     of actual use and an isolated +1 on EACH claimed axis. Pair tasks qualify;
+#     experimental scores never upgrade execution. See capabilities-guide.md.
+# C6. Review the latest 20 completed uses per class/version, counting escalations,
+#     failed acceptance, and unplanned human rescue as failures. Above 20% (5/20),
+#     propose demotion; block effects pending review. Serious scope/coverage defects
+#     suspend effects immediately. No background telemetry service is shipped.
+# C7. Discovered metadata has no effect without a matching central approval.
+# C8. Approval covers/effects may narrow metadata claims, never broaden them.
+# C9. Missing, malformed, conflicting-duplicate, or version-mismatched entries
+#     have no effect. Semantically identical copies with one ID/version count once.
+# C10. Every applied capability and source version is recorded on the task.
+# C11. Check current availability, requirements, freshness, permissions, and
+#      limitations before each effect. Unknown/failed prerequisites mean no effect.
+# C12. Record raw scores, final scores, actual per-axis deltas, applied sources,
+#      prerequisite evidence, and actual execution use; never infer use from approval.

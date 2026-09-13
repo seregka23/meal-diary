@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "decompose-and-classify": {
+      "source": "izavdev/ai_first",
+      "sourceType": "github",
+      "skillPath": "skills/decompose-and-classify/SKILL.md",
+      "computedHash": "9347cc5032652d40478fa7cdc1c6acd0e8ab38f80b871709569908124b7d116f"
+    },
+    "groom": {
+      "source": "izavdev/ai_first",
+      "sourceType": "github",
+      "skillPath": "skills/groom/SKILL.md",
+      "computedHash": "a523424c5ac634d0e9234d0b21ee37b891c76268b24f43c18ee2047f015b90ae"
+    },
+    "setup-ai-first": {
+      "source": "izavdev/ai_first",
+      "sourceType": "github",
+      "skillPath": "skills/setup-ai-first/SKILL.md",
+      "computedHash": "787a021d59638b8743c27ebac82749a8031060cd29a5bf5defccfd10b445526c"
+    },
+    "update-ai-first-capabilities": {
+      "source": "izavdev/ai_first",
+      "sourceType": "github",
+      "skillPath": "skills/update-ai-first-capabilities/SKILL.md",
+      "computedHash": "a17a072671384b6e643d8e989d7ae5b7824d7ed5f37f35eb80ca8a9e91c18924"
+    }
+  }
+}
