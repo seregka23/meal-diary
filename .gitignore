@@ -1,1 +1,6 @@
 .ai-first/
+node_modules/
+dist/
+coverage/
+.angular/
+dist-test/

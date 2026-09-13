@@ -51,3 +51,11 @@ Never mark a task complete unless:
 Stop and ask the user when acceptance criteria conflict, a required product
 decision is absent, credentials or a production action are needed, or the task
 requires a destructive data migration without an approved rollback plan.
+
+## Project commands
+
+- Install dependencies: `npm install`
+- Build all workspace apps: `npm run build`
+- Test all workspace apps: `npm test`
+- Start the NestJS backend: `npm run start:api`
+- Start the Angular frontend: `npm run start:web`

@@ -1,32 +1,45 @@
-# Codex orchestration template
+# Meal Diary
 
-This template turns Codex into a task-driven development team:
+Meal Diary is an npm workspace with a minimal NestJS backend scaffold and a
+minimal Angular frontend scaffold. The current project intentionally contains
+only startup placeholders; Food Diary domain APIs and UI flows will be added in
+later tasks.
 
-- the main Codex agent is the **orchestrator**;
-- `backend` implements server, data, and API work;
-- `frontend` implements user-interface work;
-- `tester` writes and runs task-derived tests;
-- `reviewer` checks the completed change against the original task.
+## Layout
 
-## Start here
+- `apps/api` - NestJS backend application.
+- `apps/web` - Angular frontend application.
+- `specs/tasks.md` - task tracking and completion record.
+- `docs/ai-first-workflow.md` - AI-first workflow notes.
 
-1. Copy this folder into the root of a new Git repository.
-2. Generate a feature task using your preferred `ai_first` workflow and place it in `specs/tasks.md` (or provide its path in the prompt).
-3. Open the repository in Codex and use this prompt:
+## Commands
 
-   ```text
-   Implement every unfinished item in specs/tasks.md.
-   Act as the orchestrator: delegate independent work to the appropriate agents,
-   wait for their results, run the reviewer, and do not mark a task complete
-   until the acceptance criteria and checks are satisfied.
-   ```
+Install dependencies from the repository root:
 
-## Files
+```bash
+npm install
+```
 
-- `AGENTS.md` — task-execution protocol for the main agent.
-- `.codex/config.toml` — project-level subagent settings.
-- `.codex/agents/` — specialised subagent roles.
-- `specs/tasks.md` — replaceable task template.
-- `docs/ai-first-workflow.md` — hand-off rules for generated tasks.
+Build every workspace app:
 
-Keep project-specific commands (for example, `pnpm lint`, `pnpm test`, and `pnpm build`) in the repository `AGENTS.md` once the stack is chosen.
+```bash
+npm run build
+```
+
+Run scaffold tests:
+
+```bash
+npm test
+```
+
+Start the backend in watch mode:
+
+```bash
+npm run start:api
+```
+
+Start the frontend dev server:
+
+```bash
+npm run start:web
+```
