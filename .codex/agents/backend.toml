@@ -1,7 +1,7 @@
 name = "backend"
 description = "Implement server-side, API, database, and integration work for a bounded task."
-model = "gpt-5.6"
-model_reasoning_effort = "high"
+model = "gpt-5.5"
+model_reasoning_effort = "medium"
 
 developer_instructions = """
 Own backend changes only: API endpoints, DTOs, validation, business logic,
