@@ -1,37 +1,40 @@
-# Feature task: Scaffold NestJS and Angular npm workspace
+# Feature task: Document project commands and baseline checks
 
 ## Goal
 
-The repository contains a runnable npm-managed workspace with a minimal NestJS
-backend scaffold and Angular frontend scaffold.
+Downstream Food Diary issues can rely on documented npm commands for installing
+dependencies, running the NestJS backend, running the Angular frontend, and
+executing baseline lint, test, and build checks.
 
 ## Scope and constraints
 
-- Add npm package manifests and a root lockfile for the workspace structure.
-- Scaffold backend and frontend startup placeholders only.
-- Do not implement Food Diary domain APIs or UI flows in this task.
+- Update project-owned documentation with concrete commands for install, local
+  run, lint, test, and build.
+- Add or wire baseline smoke checks for the existing backend and frontend
+  scaffolds.
+- Keep command names stable enough for future Food Diary issues to reference.
+- Do not claim Supabase/Auth/RLS validation coverage unless those checks are
+  actually implemented.
 
 ## Acceptance criteria
 
-- [x] The repository contains a NestJS backend scaffold.
-- [x] The repository contains an Angular frontend scaffold.
-- [x] npm package manifests and lockfile are committed for the introduced workspace/app structure.
-- [x] A developer can install dependencies with the documented npm command.
-- [x] The scaffold does not implement Food Diary domain behavior beyond minimal startup placeholders.
-- [x] Relevant automated tests pass.
+- [x] The project documents install, local run, lint, test, and build commands.
+- [x] Baseline commands cover both backend and frontend scaffolds where applicable.
+- [x] The documented commands are suitable for a clean checkout after dependency installation.
+- [x] The docs identify any commands that require Supabase local services or environment variables.
 
 ## Tasks
 
-### 1. Scaffold workspace
+### 1. Document command contract
 
-- [x] 1.1 Add the NestJS backend scaffold.
-- [x] 1.2 Add the Angular frontend scaffold.
-- [x] 1.3 Add npm workspace manifests, lockfile, and command documentation.
-- [x] 1.4 Add scaffold acceptance tests.
+- [x] 1.1 Document install, lint, test, build, backend start, and frontend start commands.
+- [x] 1.2 Wire a root `lint` command and per-workspace baseline lint/type checks.
+- [x] 1.3 Update scaffold tests to guard the command contract and environment notes.
+- [x] 1.4 Run baseline lint, test, and build checks.
 
 ## Completion record
 
-- Changed files: `.gitignore`, `AGENTS.md`, `README.md`, `package.json`, `package-lock.json`, `apps/api/**`, `apps/web/**`, `test/scaffold.test.mjs`, `specs/tasks.md`.
-- Checks run: `npm install`, `npm ls --workspaces --depth=0`, `npm run build`, `npm test`.
-- Reviewer result: no blocking issues after reconciling Angular package ranges with the root lockfile.
-- Non-blocking risks or follow-ups: `npm install` reports dependency audit findings in third-party packages; no issue #8 acceptance criterion remains open.
+- Changed files: `AGENTS.md`, `README.md`, `package.json`, `apps/api/package.json`, `apps/web/package.json`, `test/scaffold.test.mjs`, `specs/tasks.md`.
+- Checks run: `npm run lint`, `npm test`, `npm run build`; tester independently reran all three and reported them passing.
+- Reviewer result: blocking closeout issue found for pending completion record, then resolved by updating this record and clarifying local start command environment requirements.
+- Non-blocking risks or follow-ups: scaffold tests verify command/doc presence but do not semantically parse every README sentence; no Supabase/Auth/RLS runtime validation exists because the scaffold does not include those integrations yet.

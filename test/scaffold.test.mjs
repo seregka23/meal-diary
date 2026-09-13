@@ -25,13 +25,32 @@ describe('npm workspace scaffold', () => {
     ok(existsSync(join(root, 'apps/web/package.json')));
   });
 
-  it('documents the install command and workspace start commands', () => {
+  it('documents clean-checkout baseline commands and workspace start commands', () => {
     const readme = readText('README.md');
+    const agents = readText('AGENTS.md');
     const rootPackage = readJson('package.json');
+    const apiPackage = readJson('apps/api/package.json');
+    const webPackage = readJson('apps/web/package.json');
 
     match(readme, /npm install/);
+    match(readme, /npm run lint/);
+    match(readme, /npm test/);
+    match(readme, /npm run build/);
+    match(readme, /npm run start:api/);
+    match(readme, /npm run start:web/);
+    match(readme, /Supabase local services/);
+    match(agents, /npm run lint/);
+    match(agents, /Supabase/);
+    equal(rootPackage.scripts.lint, 'npm run lint --workspaces --if-present');
+    equal(rootPackage.scripts.build, 'npm run build --workspaces --if-present');
+    equal(rootPackage.scripts.test, 'npm run test:scaffold && npm run test --workspaces --if-present');
     equal(rootPackage.scripts['start:api'], 'npm --workspace @meal-diary/api run start:dev');
     equal(rootPackage.scripts['start:web'], 'npm --workspace @meal-diary/web run start');
+    ok(apiPackage.scripts.lint);
+    ok(apiPackage.scripts.test);
+    ok(apiPackage.scripts.build);
+    ok(webPackage.scripts.lint);
+    ok(webPackage.scripts.build);
   });
 });
 

@@ -14,10 +14,20 @@ later tasks.
 
 ## Commands
 
-Install dependencies from the repository root:
+Run all commands from the repository root after cloning the repository. The
+baseline commands cover both workspace apps where applicable and rely only on
+the committed npm workspace manifests and lockfile.
+
+Install dependencies:
 
 ```bash
 npm install
+```
+
+Run the baseline lint/type checks for every workspace app:
+
+```bash
+npm run lint
 ```
 
 Build every workspace app:
@@ -26,20 +36,29 @@ Build every workspace app:
 npm run build
 ```
 
-Run scaffold tests:
+Run scaffold and workspace tests:
 
 ```bash
 npm test
 ```
 
-Start the backend in watch mode:
+Start the NestJS backend in watch mode:
 
 ```bash
 npm run start:api
 ```
 
-Start the frontend dev server:
+Start the Angular frontend dev server:
 
 ```bash
 npm run start:web
 ```
+
+### Environment-dependent checks
+
+The current scaffold has no Supabase, authentication, RLS, or external service
+checks. `npm install`, `npm run lint`, `npm test`, `npm run build`,
+`npm run start:api`, and `npm run start:web` are intended to work from a clean
+checkout without Supabase local services or application environment variables.
+Future tasks that add Supabase-backed features should document their required
+local services and environment variables next to the commands that need them.
