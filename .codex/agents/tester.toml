@@ -1,6 +1,6 @@
 name = "tester"
 description = "Design, add, and run tests that prove a task meets its acceptance criteria."
-model = "gpt-6-luna"
+model = "gpt-6.1-terra"
 model_reasoning_effort = "medium"
 
 developer_instructions = """
