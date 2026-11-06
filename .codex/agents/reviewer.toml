@@ -1,6 +1,6 @@
 name = "reviewer"
 description = "Read-only final reviewer that checks a completed change against the source task."
-model = "gpt-6-luna"
+model = "gpt-6.1-terra"
 model_reasoning_effort = "medium"
 sandbox_mode = "read-only"
 
